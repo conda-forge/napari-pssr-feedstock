@@ -6,18 +6,18 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari-pssr-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari-pssr-{{ version }}.tar.gz
   sha256: 5c9681e7f7a35f0d00357fdb33ae08754687b467bbebd43f3787d14e77d67f5c
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python {{ python_min }}
     - setuptools-scm
   run:
     - bioimageio.core
@@ -26,7 +26,7 @@ requirements:
     - matplotlib-base
     - napari
     - numpy
-    - python >=3.7
+    - python >={{ python_min }}
     - pytorch
     - zarr
 
@@ -38,6 +38,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/pattonw/napari-pssr
